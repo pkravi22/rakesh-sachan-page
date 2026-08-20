@@ -1,26 +1,47 @@
-import { Bell } from 'lucide-react';
+import { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Stats from './components/Stats';
+import About from './components/About';
+import Positions from './components/Positions';
+import Achievements from './components/Achievements';
+import Contributions from './components/Contributions';
+import Gallery from './components/Gallery';
+import Timeline from './components/Timeline';
+import Quotes from './components/Quotes';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <>
-      <div className="background-elements">
-        <div className="orb-1"></div>
-        <div className="orb-2"></div>
-      </div>
-      
-      <div className="app-container">
-        <div className="glass-card">
-          <h1 className="glow-text">We will be live soon!</h1>
-          <p className="subtitle">We're crafting something amazing. Stay tuned.</p>
-          
-          <button className="notify-btn" onClick={() => alert("Thanks for your interest! We'll let you know.")}>
-            <Bell size={20} />
-            Notify Me
-          </button>
-        </div>
-      </div>
-    </>
+    <div className="site-wrapper">
+      <Navbar />
+      <Hero />
+      <Stats />
+      <About />
+      <Positions />
+      <Achievements />
+      <Contributions />
+      <Gallery />
+      <Timeline />
+      <Quotes />
+      <Contact />
+      <Footer />
+    </div>
   );
 }
 
